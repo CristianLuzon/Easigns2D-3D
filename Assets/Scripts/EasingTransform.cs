@@ -33,8 +33,8 @@ public class EasingTransform : MonoBehaviour
     public float m_CurrentTime;
     public float m_EasingDuration;
 
-    public bool m_Restart;
-    public bool m_PingPong;
+    bool m_Restart;
+    bool m_PingPong;
     bool m_TimeForward;
 
     void Start()
@@ -62,16 +62,17 @@ public class EasingTransform : MonoBehaviour
         }
     }
 
- void Update()
+	void Update()
     {
         if(m_CurrentTime <= m_EasingDuration)
         {
             if(!m_TimeForward) m_CurrentTime += Time.deltaTime;
             else if(m_TimeForward) m_CurrentTime -= Time.deltaTime;
 
-            /*Vector3 l_EasingValue = new Vector3(Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.x, m_DeltaValue.x, m_EasingDuration),
-                                                Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.y, m_DeltaValue.y, m_EasingDuration),
-                                                Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
+            /*ejemplo
+             Vector3 l_EasingValue = new Vector3(Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.x, m_DeltaValue.x, m_EasingDuration),
+                                                 Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.y, m_DeltaValue.y, m_EasingDuration),
+                                                 Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
 
             transform.localPosition = l_EasingValue;*/
 
@@ -87,7 +88,7 @@ public class EasingTransform : MonoBehaviour
                 case TEasingType.CIRC:
                     l_EasingValue = new Vector3(Easing.CircEaseInOut(m_CurrentTime, m_InitalValue.x, m_DeltaValue.x, m_EasingDuration),
                                                 Easing.CircEaseInOut(m_CurrentTime, m_InitalValue.y, m_DeltaValue.y, m_EasingDuration),
-                                               Easing.CircEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
+                                                Easing.CircEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                    break;
                case TEasingType.QUINT:
                    l_EasingValue = new Vector3(Easing.QuintEaseInOut(m_CurrentTime, m_InitalValue.x, m_DeltaValue.x, m_EasingDuration),
@@ -111,8 +112,8 @@ public class EasingTransform : MonoBehaviour
                    break;
                case TEasingType.BACK:
                    l_EasingValue = new Vector3(Easing.BackEaseInOut(m_CurrentTime, m_InitalValue.x, m_DeltaValue.x, m_EasingDuration),
-                                                Easing.BackEaseInOut(m_CurrentTime, m_InitalValue.y, m_DeltaValue.y, m_EasingDuration),
-                                                Easing.BackEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
+                                               Easing.BackEaseInOut(m_CurrentTime, m_InitalValue.y, m_DeltaValue.y, m_EasingDuration),
+                                               Easing.BackEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     break;
                 case TEasingType.BOUNCE:
                     l_EasingValue = new Vector3(Easing.BounceEaseInOut(m_CurrentTime, m_InitalValue.x, m_DeltaValue.x, m_EasingDuration),
@@ -173,7 +174,6 @@ public class EasingTransform : MonoBehaviour
                     m_DeltaValue = m_FinallValue - m_InitalValue;
                 }
             }
-
         }
         else
         {
