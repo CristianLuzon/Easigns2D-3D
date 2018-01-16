@@ -15,7 +15,8 @@ public class EasingTransform : MonoBehaviour
     {
         POSITION = 0,
         ROTATE,
-        SCALE
+        SCALE,
+        ALL
     }
     public TTransformSelected m_TransformSelected;
 
@@ -37,15 +38,16 @@ public class EasingTransform : MonoBehaviour
 
     public bool m_ChangeAlpha;
     public bool m_ResetDelay;
+    public bool m_UseActualPosition;
 
     public Vector3 m_InitalValue;
-    public Vector3 m_FinallValue;
+    public Vector3 m_FinalValue;
     Vector3 m_DeltaValue;
 
     Color m_ColorEasing;
     Image m_Image;
     public Vector2 m_AlphaValues;
-    public float m_AlphaDeltaValue;
+    float m_AlphaDeltaValue;
 
     float m_CurrentTime;
     public float m_EasingDuration;
@@ -54,16 +56,23 @@ public class EasingTransform : MonoBehaviour
     bool m_PingPong;
     bool m_TimeForward;
 
-    public float m_CurrentDeleyTime;
+    float m_CurrentDeleyTime;
     public float m_StarFixedtDelay;
     public Vector2 m_RangeRandomDeley;
 
     void Start()
     {
-        m_DeltaValue = m_FinallValue - m_InitalValue;
+        if(m_UseActualPosition)
+        {
+            m_InitalValue = transform.localPosition;
+            m_FinalValue += m_InitalValue;
+        }
+
+        m_DeltaValue = m_FinalValue - m_InitalValue;
         m_AlphaDeltaValue = m_AlphaValues.y - m_AlphaValues.x;
         m_CurrentTime = 0;
         m_TimeForward = false;
+
 
         switch (m_EasingEnd)
         {
@@ -202,6 +211,11 @@ public class EasingTransform : MonoBehaviour
                 case TTransformSelected.SCALE:
                     transform.localScale = l_EasingValue;
                     break;
+                case TTransformSelected.ALL:
+                    //transform.localPosition = l_EasingValue;
+                    transform.localRotation = Quaternion.Euler(l_EasingValue);
+                    transform.localScale = l_EasingValue/10;
+                    break;
                 default:
                     break;
             }
@@ -222,13 +236,13 @@ public class EasingTransform : MonoBehaviour
                 switch(m_TransformSelected)
                 {
                     case TTransformSelected.POSITION:
-                        transform.localPosition = m_FinallValue;
+                        transform.localPosition = m_FinalValue;
                         break;
                     case TTransformSelected.ROTATE:
-                        transform.localRotation = Quaternion.Euler(m_FinallValue);
+                        transform.localRotation = Quaternion.Euler(m_FinalValue);
                         break;
                     case TTransformSelected.SCALE:
-                        transform.localScale = m_FinallValue;
+                        transform.localScale = m_FinalValue;
                         break;
                     default:
                         break;
@@ -250,9 +264,9 @@ public class EasingTransform : MonoBehaviour
                     if (m_ResetDelay) m_CurrentDeleyTime = 0;
                     m_CurrentTime = 0;
                     Vector3 l_Initial = m_InitalValue;
-                    m_InitalValue = m_FinallValue;
-                    m_FinallValue = l_Initial;
-                    m_DeltaValue = m_FinallValue - m_InitalValue;
+                    m_InitalValue = m_FinalValue;
+                    m_FinalValue = l_Initial;
+                    m_DeltaValue = m_FinalValue - m_InitalValue;
 
                     float l_AlphaInitial = m_AlphaValues.x;
                     m_AlphaValues.x = m_AlphaValues.y;
