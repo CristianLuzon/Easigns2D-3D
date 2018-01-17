@@ -16,6 +16,7 @@ public class EasingTransform : MonoBehaviour
         POSITION = 0,
         ROTATE,
         SCALE,
+        FILLED,
         ALL
     }
     public TTransformSelected m_TransformSelected;
@@ -37,6 +38,7 @@ public class EasingTransform : MonoBehaviour
     public TEasingDelayType m_EasingDelayType;
 
     public bool m_ChangeAlpha;
+    public bool m_ChangeFilled;
     public bool m_ResetDelay;
     public bool m_UseActualPosition;
 
@@ -54,7 +56,6 @@ public class EasingTransform : MonoBehaviour
 
     bool m_Restart;
     bool m_PingPong;
-    bool m_TimeForward;
 
     float m_CurrentDeleyTime;
     public float m_StarFixedtDelay;
@@ -71,7 +72,6 @@ public class EasingTransform : MonoBehaviour
         m_DeltaValue = m_FinalValue - m_InitalValue;
         m_AlphaDeltaValue = m_AlphaValues.y - m_AlphaValues.x;
         m_CurrentTime = 0;
-        m_TimeForward = false;
 
 
         switch (m_EasingEnd)
@@ -121,7 +121,7 @@ public class EasingTransform : MonoBehaviour
                                                 Easing.ExpoEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.ExpoEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.ExpoEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                 case TEasingType.CIRC:
@@ -130,7 +130,7 @@ public class EasingTransform : MonoBehaviour
                                                 Easing.CircEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.CircEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.CircEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                case TEasingType.QUINT:
@@ -139,7 +139,7 @@ public class EasingTransform : MonoBehaviour
                                                Easing.QuintEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.QuintEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.QuintEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                case TEasingType.QUART:
@@ -148,7 +148,7 @@ public class EasingTransform : MonoBehaviour
                                                Easing.QuartEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.QuartEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.QuartEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                case TEasingType.QUAD:
@@ -157,7 +157,7 @@ public class EasingTransform : MonoBehaviour
                                                Easing.QuadEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.QuadEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.QuadEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                case TEasingType.SINE:
@@ -166,7 +166,7 @@ public class EasingTransform : MonoBehaviour
                                                Easing.SineEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.SineEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.SineEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                case TEasingType.BACK:
@@ -175,7 +175,7 @@ public class EasingTransform : MonoBehaviour
                                                Easing.BackEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.BackEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.BackEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                 case TEasingType.BOUNCE:
@@ -184,7 +184,7 @@ public class EasingTransform : MonoBehaviour
                                                 Easing.BounceEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.BounceEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.BounceEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                 case TEasingType.ELASTIC:
@@ -193,7 +193,7 @@ public class EasingTransform : MonoBehaviour
                                                 Easing.ElasticEaseInOut(m_CurrentTime, m_InitalValue.z, m_DeltaValue.z, m_EasingDuration));
                     if (m_ChangeAlpha)
                     {
-                        l_EsingAlpha = Easing.ElasticEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaValues.y, m_EasingDuration);
+                        l_EsingAlpha = Easing.ElasticEaseInOut(m_CurrentTime, m_AlphaValues.x, m_AlphaDeltaValue, m_EasingDuration);
                     }
                     break;
                 default:
@@ -211,6 +211,10 @@ public class EasingTransform : MonoBehaviour
                 case TTransformSelected.SCALE:
                     transform.localScale = l_EasingValue;
                     break;
+                case TTransformSelected.FILLED:
+                    Image l_image = GetComponent<Image>();
+                    l_image.fillAmount = l_EsingAlpha;
+                    break;
                 case TTransformSelected.ALL:
                     //transform.localPosition = l_EasingValue;
                     transform.localRotation = Quaternion.Euler(l_EasingValue);
@@ -220,16 +224,13 @@ public class EasingTransform : MonoBehaviour
                     break;
             }
 
-            if (m_ChangeAlpha)
+            if (m_ChangeAlpha && !m_ChangeFilled)
             {
                 m_ColorEasing.a = l_EsingAlpha;
                 m_Image.color = m_ColorEasing;
             }
 
             m_CurrentTime += Time.deltaTime;
-
-            Debug.Log("Easing: " + l_EsingAlpha);
-            Debug.Log("alpha: " + m_ColorEasing.a);
 
             if (m_CurrentTime > m_EasingDuration)
             {
