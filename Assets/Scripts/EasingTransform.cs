@@ -38,6 +38,7 @@ public class EasingTransform : MonoBehaviour
     public TEasingDelayType m_EasingDelayType;
 
     public bool m_ChangeAlpha;
+    public bool m_RandomColor;
     public bool m_ChangeFilled;
     public bool m_ResetDelay;
     public bool m_UseActualPosition;
@@ -101,6 +102,11 @@ public class EasingTransform : MonoBehaviour
         {
             m_Image = GetComponent<Image>();
             m_ColorEasing = m_Image.color;
+            if (m_RandomColor)
+            {
+                m_Image.color = new Color(Random.Range(0.05f, 1.0f), Random.Range(0.05f, 1.0f), Random.Range(0.05f, 1.0f));
+                m_ColorEasing = m_Image.color;
+            }
         }
     }
 
@@ -251,7 +257,7 @@ public class EasingTransform : MonoBehaviour
 
                 if (m_ChangeAlpha)
                 {
-                    m_ColorEasing.a = 1f;
+                    m_ColorEasing.a = m_AlphaValues.y;
                     m_Image.color = m_ColorEasing;
                 }
 

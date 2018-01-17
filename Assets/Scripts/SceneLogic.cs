@@ -34,12 +34,8 @@ public class SceneLogic : MonoBehaviour
 
     void Update()
     { // Input manager
-        if(Input.GetKey(KeyCode.AltGr))
-        {
-            if(Input.GetKeyDown(KeyCode.N)) StartLoad(nextScene);
-            if(Input.GetKeyDown(KeyCode.B)) StartLoad(backScene);
-            if(Input.GetKeyDown(KeyCode.R)) StartLoad(currentScene);
-        }
+        if(Input.GetKeyDown(KeyCode.N)) StartLoad(nextScene);
+        if(Input.GetKeyDown(KeyCode.B)) StartLoad(backScene);
     }
 
     void UpdateSceneState()
