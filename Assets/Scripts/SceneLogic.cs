@@ -30,6 +30,8 @@ public class SceneLogic : MonoBehaviour
         UpdateSceneState();
 
         if(currentScene == managerScene) StartLoad(nextScene);
+
+        Screen.SetResolution(1280, 720, false);
     }
 
     void Update()
